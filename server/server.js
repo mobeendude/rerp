@@ -11,11 +11,13 @@ import serverConfig from './config';
 import compression from 'compression';
 
 require("./models/user");
+require("./models/follow");
 const passport = require('passport');
 const authCheckMiddleware = require('./middleware/auth-check');
 
 import todos from './routes/todo.routes';
 
+import follow from './routes/follow.routes';
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = process.env.PORT || 4000;
 const app = express();
@@ -30,6 +32,7 @@ const localLoginStrategy = require('./passport/local-login');
 passport.use('local-signup', localSignupStrategy);
 passport.use('local-login', localLoginStrategy);
 app.use('/api/', todos);
+app.use('/api/', follow);
 app.use('/api', authCheckMiddleware);
 
 import todosDummyData from './todosDummyData';

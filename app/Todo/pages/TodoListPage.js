@@ -45,7 +45,16 @@ constructor(props, context) {
    
     return (
       <div className="container">
+      <div className="row">
+  <Link to={'/follow'}>Follow</Link>
  <Link to={'/logout'}>Logout</Link>
+ 
+
+ </div>
+
+
+
+ <span >
       <div className="well">
         <TodoCreateWidget
           addTodo={this.handleAddTodo}
@@ -56,6 +65,8 @@ constructor(props, context) {
           todos={this.props.todos}
         />
         </div>
+
+        </span>
       </div>
     );
   }

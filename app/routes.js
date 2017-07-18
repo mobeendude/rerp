@@ -4,7 +4,7 @@ import App from './containers/App';
 import HomePage from './containers/HomePage';
 import CounterPage from './containers/CounterPage';
 import LoginPage from './containers/LoginPage';
-
+import FollowPage from './containers/FollowPage';
 import SignUpPage from './containers/SignUpPage';
 import Auth from './containers/Auth';
 import TodoListPage from './Todo/pages/TodoListPage';
@@ -14,6 +14,7 @@ export default (
   <IndexRoute    component= {HomePage}   />
     <Route path="/counter" component={CounterPage} />
     <Route path="/login" component={LoginPage} />
+     <Route path="/follow" component={FollowPage} />
     <Route path="/signup" component={SignUpPage} />
      <Route path="/todo" component={TodoListPage} />
      <Route path="/logout" component={HomePage} />

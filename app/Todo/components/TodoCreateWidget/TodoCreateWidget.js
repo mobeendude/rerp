@@ -20,12 +20,12 @@ export class TodoCreateWidget extends Component {
       <div className="form-inline">
         <div className="input-group">
           <input type="text" className="form-control" size="50" maxLength="100"  ref="todoText" />
-          <span className="input-group-btn">
+          <span className="input-group-btn" style={{display: 'initial'}}  >
             <button className="btn btn-primary" type="button" onClick={this.addTodo}>
-              <div id="addTodo" />
+              Add
             </button>
             <button className="btn btn-danger" type="button" onClick={this.clearCompletedTodo}>
-              <div id="deleteCompletedTodos" />
+             Delete Completed
             </button>
           </span>
         </div>
