@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-
+import mongoose from 'mongoose';
 import path from 'path';
 import express from 'express';
 import webpack from 'webpack';
@@ -7,12 +7,52 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import config from '../webpack.config.js';
 import bodyParser from 'body-parser';
+import serverConfig from './config';
+import compression from 'compression';
+
+require("./models/user");
+const passport = require('passport');
+const authCheckMiddleware = require('./middleware/auth-check');
+
+import todos from './routes/todo.routes';
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 const app = express();
-app.use(bodyParser.json());
+
+
+app.use(compression());
+app.use(bodyParser.json({ limit: '20mb' }));
+app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
+app.use(passport.initialize());
+const localSignupStrategy = require('./passport/local-signup');
+const localLoginStrategy = require('./passport/local-login');
+passport.use('local-signup', localSignupStrategy);
+passport.use('local-login', localLoginStrategy);
+app.use('/api/', todos);
+app.use('/api', authCheckMiddleware);
+
+import todosDummyData from './todosDummyData';
+const authRoutes = require('./routes/auth');
+
+app.use('/auth', authRoutes);
+
 app.use('/static', express.static(path.join(__dirname, '../static')));
+// Set native promises as mongoose promise
+mongoose.Promise = global.Promise;
+
+// MongoDB Connection
+mongoose.connect(serverConfig.mongoURL,  {
+  useMongoClient: true,
+  /* other options */
+   
+
+});
+
+
+
+ todosDummyData();
+
 
 if (isDeveloping) {
   console.log('Server started in development mode.');
