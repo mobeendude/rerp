@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-
+import Auth from '../../containers/Auth';
+import { Link } from 'react-router';
 // Import Components
 import TodoList from '../components/TodoList';
 import TodoCreateWidget from '../components/TodoCreateWidget/TodoCreateWidget';
@@ -12,6 +13,17 @@ import { addTodoRequest, fetchTodos, completeTodoRequest, clearCompletedTodoRequ
 import { getTodos } from '../TodoReducer';
 
 class TodoListPage extends Component {
+
+constructor(props, context) {
+    super(props, context);
+     if (!Auth.isUserAuthenticated()) {
+          this.context.router.replace('/');
+         }
+  }
+
+
+
+
   componentDidMount() {
     this.props.dispatch(fetchTodos());
   }
@@ -32,7 +44,9 @@ class TodoListPage extends Component {
    
    
     return (
-      <div>
+      <div className="container">
+ <Link to={'/logout'}>Logout</Link>
+      <div className="well">
         <TodoCreateWidget
           addTodo={this.handleAddTodo}
           clearCompletedTodo={this.handleClearCompletedTodo}
@@ -41,6 +55,7 @@ class TodoListPage extends Component {
           handleCompleteTodo={this.handleCompleteTodo}
           todos={this.props.todos}
         />
+        </div>
       </div>
     );
   }
