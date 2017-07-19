@@ -9,7 +9,7 @@ function TodoListItem(props) {
     <li className={styles.li_style}>
       <div className={props.todo.completed ? styles.done_true : ''}>
         <button className="btn btn-link btn-xs" onClick={props.onComplete}>
-          <div id="todoToggleStatus" />
+         !
         </button>
         {props.todo.text}
       </div>

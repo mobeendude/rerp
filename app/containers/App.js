@@ -14,7 +14,7 @@ export default class App extends Component {
           (() => {
             if (process.env.NODE_ENV !== 'production') {
 
-              return <DevTools />;
+             return <DevTools />;
             }
           })()
         }
